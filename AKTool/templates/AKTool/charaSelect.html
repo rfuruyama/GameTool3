@@ -1,0 +1,44 @@
+{% extends "AKTool/base.html" %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .flex-box {
+            display: flex;
+            padding: 10px;
+        }
+        .mes{
+            color: red;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+{% if character_list %}
+    <h2>キャラクターから検索</h2>
+
+    <form method="GET" action="{% url 'AKTool:charaSelect' user.username %}">
+        <input type="text" name="keyword">
+    <button type="submit">検索</button>
+    </form>
+
+    <br>
+
+    <ul>
+        {% for c in character_list %}
+            <div class="flex-box">
+            <li><a href="{% url 'AKTool:charaDetail' user.username c.id %}">★{{ c.character_rare }} {{ c.character_name }}</a></li>
+            {% for s in select_list %}
+                {% if s == c.id %}
+                    <div class="mes">
+                    <h4> 登録済み</h4>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            </div>
+        {% endfor %}
+    </ul>
+    <h4><a href="{% url 'AKTool:home' user.username %}">ホームに戻る</a></h4>
+{% else %}
+    <p>No Character list.</p>
+{% endif %}
+{% endblock %}

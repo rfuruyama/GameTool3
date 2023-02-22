@@ -1,0 +1,99 @@
+{% extends "AKTool/base.html" %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .parents {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 10px;
+        }
+        .flex-box {
+            display: flex;
+            padding: 10px;
+        }
+        .box{
+            margin: 20px;
+            padding: 10px;
+        }
+        .mes{
+            color: red;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+    <h2>キャラクターから検索</h2>
+
+    <form method="POST" action="{% url 'AKTool:tagSelect' user.username %}">
+    {% csrf_token %}
+        <h4>ジョブ</h4>
+        <label><input type="checkbox" name="tag" value="先鋒"> 先鋒</label>
+        <label><input type="checkbox" name="tag" value="前衛"> 前衛</label>
+        <label><input type="checkbox" name="tag" value="狙撃"> 狙撃</label>
+        <label><input type="checkbox" name="tag" value="重装"> 重装</label>
+        <br>
+        <label><input type="checkbox" name="tag" value="医療"> 医療</label>
+        <label><input type="checkbox" name="tag" value="補助"> 補助</label>
+        <label><input type="checkbox" name="tag" value="術師"> 術師</label>
+        <label><input type="checkbox" name="tag" value="特殊"> 特殊</label>
+        <br>
+        <h4>位置</h4>
+        <label><input type="checkbox" name="tag" value="近距離"> 近距離</label>
+        <label><input type="checkbox" name="tag" value="遠距離"> 遠距離</label>
+        <br>
+        <h4>タグ</h4>
+        <label><input type="checkbox" name="tag" value="火力"> 火力</label>
+        <label><input type="checkbox" name="tag" value="防御"> 防御</label>
+        <label><input type="checkbox" name="tag" value="COST回復">COST回復</label>
+        <label><input type="checkbox" name="tag" value="範囲攻撃"> 範囲攻撃</label>
+        <label><input type="checkbox" name="tag" value="生存"> 生存</label>
+        <label><input type="checkbox" name="tag" value="治療"> 治療</label>
+        <br>
+        <label><input type="checkbox" name="tag" value="支援"> 支援</label>
+        <label><input type="checkbox" name="tag" value="弱化"> 弱化</label>
+        <label><input type="checkbox" name="tag" value="減速"> 減速</label>
+        <label><input type="checkbox" name="tag" value="強制移動"> 強制移動</label>
+        <label><input type="checkbox" name="tag" value="牽制"> 牽制</label>
+        <label><input type="checkbox" name="tag" value="爆発力"> 爆発力</label>
+        <br>
+        <label><input type="checkbox" name="tag" value="召喚"> 召喚</label>
+        <label><input type="checkbox" name="tag" value="高速再配置"> 高速再配置</label>
+        <label><input type="checkbox" name="tag" value="初期"> 初期</label>
+        <label><input type="checkbox" name="tag" value="ロボット"> ロボット</label>
+        <label><input type="checkbox" name="tag" value="エリート"> エリート</label>
+        <label><input type="checkbox" name="tag" value="上級エリート"> 上級エリート</label>
+        <br>
+        <button type="submit">検索</button>
+    </form>
+
+    <br>
+{% if character_list %}
+    <ul>
+    <div class="parents">
+
+        {% for key, c_l in character_list.items %}
+            <div class="box">
+            <h3>{{ key }}</h3>
+            {% for c in c_l %}
+            <div class="flex-box">
+            <li><a href="{% url 'AKTool:charaDetail' user.username c.id %}">★{{ c.character_rare }} {{ c.character_name }}</a></li>
+
+                {% for s in select_list %}
+                {% if s == c.id %}
+                    <div class="mes">
+                    <h4> 登録済み</h4>
+                    </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+            </div>
+    {% endfor %}
+    </div>
+    </ul>
+    <h4><a href="{% url 'AKTool:home' user.username %}">ホームに戻る</a></h4>
+{% else %}
+    <p>検索条件を選択してください。</p>
+{% endif %}
+{% endblock %}

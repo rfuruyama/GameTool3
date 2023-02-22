@@ -1,0 +1,59 @@
+{% extends "AKTool/base.html" %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .flex-box{
+            display: flex;
+            padding: 10px;
+        }
+        .name{
+            margin: 10px
+        }
+        .tag{
+            text-align: center;
+            margin: 10px;
+            color: white;
+            background-color: black;
+            width: 6em;
+        }
+        fieldset{
+            display: flex;
+            justify-content: space-evenly;
+            min-width: 5em;
+        }
+    </style>
+</head>
+    <h2>ようこそ</h2>
+    <h3>{{ user.username }}さんが狙っているキャラクター</h3>
+    <br>
+    <h5>ここでは5人のオペレーターを登録できます。</h5>
+    <h5>登録を解除することで再度別のオペレーターを登録できます。</h5>
+    <h5>オペレーターの登録は各オペレーターをクリックして見られる詳細画面からお願いします。</h5>
+    <br>
+    <ul>
+        {% for c in character_list %}
+            <div class="flex-box">
+            <div class="name">
+            <form method="POST" action="{% url 'AKTool:home' user.username %}">
+                {% csrf_token %}
+                <button type="submit" name="number" value={{ c.id }}>
+                    <i class="fa fa-trash" aria-hidden="true" style="margin-right:15px"></i>削除
+                </button>
+            </form>
+            </div>
+            <div class="name">
+            <li style="list-style: none"><a href="{% url 'AKTool:charaDetail' user.username c.id %}">★{{ c.character_rare }} {{ c.character_name }}</a></li>
+            </div>
+            </div>
+            <div class="flex-box">
+            {% for tag in c.tags %}
+            <div class="tag">
+            <h4>{{ tag }}</h4>
+            </div>
+            {% endfor %}
+            </div>
+        {% endfor %}
+    </ul>
+{% endblock %}

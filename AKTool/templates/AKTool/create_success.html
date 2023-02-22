@@ -1,0 +1,31 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新規登録成功</title>
+    <style>
+        .box2{
+            padding: 3em 0em;
+            margin: 5em 5em;
+            font-weight: bold;
+            border: solid 3px black;
+            border-radius: 10px;
+        }
+        body{
+            text-align: center;
+        }
+        h2{
+            color: #FFFFFF;
+            background-color:#000000;
+            border-bottom:solid 1px black
+        }
+    </style>
+</head>
+<body>
+<h1>{{ user.username }}さん、新規登録に成功しました！</h1>
+<h2>クロージャの部屋をご活用ください！</h2>
+<bottun><a href="{% url 'AKTool:home' user.username %}">利用する</a></bottun>
+<br>
+<bottun><a href="{% url 'AKTool:logout' %}">ログアウトする</a></bottun>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ログイン</title>
+    <style>
+        .box2{
+            padding: 3em 0em;
+            margin: 5em 5em;
+            font-weight: bold;
+            border: solid 3px black;
+            border-radius: 10px;
+        }
+        body{
+            text-align: center;
+        }
+        h2{
+            color: #FFFFFF;
+            background-color:#000000;
+            border-bottom:solid 1px black
+        }
+    </style>
+</head>
+<body>
+<div class="box2">
+<h2>ログイン</h2>
+{% if error_message %}
+<p><strong style="color: red;">{{ error_message }}</strong></p>
+{% endif %}
+<form action="{% url 'AKTool:login' %}" method="post">
+    {% csrf_token %}
+    <label for="username">username</label>
+    <input type="text" name="username" id="username" value="">
+    <br>
+    <label for="password">password</label>
+    <input type="password" name="password" id="password" value="">
+    <br>
+    <button type="submit">ログイン</button>
+</form>
+</div>
+
+</body>
+</html>

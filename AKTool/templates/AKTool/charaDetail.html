@@ -1,0 +1,40 @@
+{% extends "AKTool/base.html" %}
+{% block content %}
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .flex-box{
+            display: flex;
+            padding: 10px;
+        }
+        .tag{
+            text-align: center;
+            margin: 10px;
+            color: white;
+            background-color: black;
+            width: 6em;
+        }
+        fieldset{
+            display: flex;
+            justify-content: space-evenly;
+            min-width: 5em;
+        }
+    </style>
+</head>
+<body>
+<h2>★{{ character.character_rare }} {{ character.character_name }}</h2>
+            <div class="flex-box">
+            {% for tag in character.tags %}
+            <div class="tag">
+            <h4>{{ tag }}</h4>
+            </div>
+            {% endfor %}</div>
+<form action="{% url 'AKTool:charaDetail' user.username character.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">登録</button>
+</form>
+<h3>{{ message }}</h3>
+<h3><a href="{% url 'AKTool:charaSelect' user.username %}">キャラクター一覧に戻る</a></h3>
+<h3><a href="{% url 'AKTool:home' user.username %}">ホームに戻る</a></h3>
+</body>
+{% endblock %}

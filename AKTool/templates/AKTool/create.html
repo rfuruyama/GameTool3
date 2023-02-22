@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+    <title>新規登録</title>
+    <style>
+        .box2{
+            padding: 3em 0em;
+            margin: 5em 5em;
+            font-weight: bold;
+            border: solid 3px black;
+            border-radius: 10px;
+        }
+        body{
+            text-align: center;
+        }
+        h2{
+            color: #FFFFFF;
+            background-color:#000000;
+            border-bottom:solid 1px black
+        }
+    </style>
+</head>
+<html lang="ja">
+  <body>
+  <div class="box2">
+  <h2>新規ユーザー登録</h2>
+    <form method="POST" action="{% url 'AKTool:signup' %}">
+      {% csrf_token %}
+      <p>
+          <label>username:</label>
+          {{ form.username }}
+          {{ form.username.errors }}
+      </p>
+      <p>
+          <label>password:</label>
+          {{ form.password1 }}
+          {{ form.password1.errors }}
+      </p>
+      <p>
+          <label>confirm password:</label>
+          {{ form.password2 }}
+          {{ form.password2.errors }}
+      </p>
+        <p>
+            ※passwordは英字、数字をそれぞれ1文字以上含む8~16文字
+        </p>
+      <button type = "submit">登録</button>
+    </form>
+  </div>
+  </body>
+</html>

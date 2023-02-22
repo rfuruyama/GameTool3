@@ -1,0 +1,41 @@
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+    <title>クロージャの部屋</title>
+    <link rel="stylesheet" href="{% static 'AKTool/common.css' %}">
+    <script src="https://kit.fontawesome.com/d86c726e71.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div>
+            <p>クロージャの部屋</p>
+        </div>
+        <div>
+            {% if user.is_authenticated %}
+            <p>こんにちは {{ user.username }}    <a href="{% url 'AKTool:logout'%}">ログアウト</a></p>
+            {% else %}
+            <p><a href="{% url 'AKTool:login' %}">ログイン</a></p>
+            {% endif %}
+        </div>
+    </header>
+
+    <div id="wrapper">
+      <nav id="nav-left">
+        <div id="nav">
+          <ul id="nav-ul">
+              <li class="nav-li"><a href="{% url 'AKTool:home' user.username %}" class="nav-li-a"><i class="fa fa-home" aria-hidden="true" style="margin-right:15px"></i>ホーム</a></li>
+              <li class="nav-li"><a href="{% url 'AKTool:charaSelect' user.username %}" class="nav-li-a"><i class="fa fa-users" aria-hidden="true" style="margin-right:15px"></i>キャラクターから検索</a></li>
+              <li class="nav-li"><a href="{% url 'AKTool:tagSelect' user.username %}" class="nav-li-a"><i class="fas fa-list" style="margin-right:15px"></i>タグから検索</a></li>
+          </ul>
+        </div>
+      </nav>
+      <main id="main">
+          {% block content %}
+          {% endblock %}
+      </main>
+    </div>
+</body>
+</html>

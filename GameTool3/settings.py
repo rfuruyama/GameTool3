@@ -26,7 +26,7 @@ SECRET_KEY = get_random_secret_key()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '.pythonanywhere.com', 'rfuruyama.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.pythonanywhere.com', 'furuyama.pythonanywhere.com']
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
